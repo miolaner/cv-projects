@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            justify-content: center;
+        }
+
+        header {
+            background: #fff;
+            color: #fff;
+            padding: 10px 0;
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Ensure the header is above the form */
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Increased the max-width to make the form wider */
+            text-align: center;
+            margin-top: 60px; /* Adjust based on header height */
+        }
+
+        h1 {
+            color: #d22d24;
+            margin: 0;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px; /* Increased height for better usability */
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Literary Lions Forum</h1>
+    </header>
+    <div class="form-container">
+        <h2>Create Post</h2>
+        <form method="POST">
+            <label for="category">Category:</label>
+            <select name="category" id="category">
+                <option value="Reviews">Reviews</option>
+                <option value="Questions">Questions</option>
+                <option value="Marketplace">Marketplace</option>
+                <option value="Random">Random</option>
+            </select>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" required></textarea>
+
+            <input type="submit" value="Create">
+            <a href="/">Back to Home</a>
+        </form>
+    </div>
+</body>
+</html>

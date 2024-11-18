@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        /* Add some basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center the content by default */
+        }
+        .header {
+            padding: 10px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center; /* Center the header content */
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            flex-direction: column; /* Stack title and buttons vertically */
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d22d24;
+        }
+        .header .auth-buttons {
+            margin-top: 10px;
+        }
+        .header .auth-buttons a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .search-bar {
+            padding: 10px;
+        }
+        .search-bar form {
+            display: inline-block;
+        }
+        .search-bar input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            padding: 5px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .content {
+            padding: 20px;
+            max-width: 800px; /* Center content block with max width */
+            margin: 0 auto; /* Center content block */
+        }
+        .search-results-title {
+            font-size: 18px; /* Smaller font size for search results title */
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .post-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center; /* Center the post list */
+            margin-top: 20px;
+        }
+        .post-list li {
+            margin-bottom: 20px; /* Increased margin for better spacing */
+        }
+        .post-list li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 20px; /* Larger font size for post titles */
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-size: 16px;
+        }
+        .search-options label {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Literary Lions Forum</div>
+        <div class="auth-buttons">
+            <!-- Example auth links, adjust as needed -->
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <form action="/search" method="get">
+            <input type="text" name="q" value="{{.Query}}" placeholder="Search posts">
+            <div class="search-options">
+                <label>
+                    <input type="radio" name="field" value="all" {{if eq .Field "all"}}checked{{end}}> All Fields
+                </label>
+                <label>
+                    <input type="radio" name="field" value="title" {{if eq .Field "title"}}checked{{end}}> Title
+                </label>
+                <label>
+                    <input type="radio" name="field" value="content" {{if eq .Field "content"}}checked{{end}}> Content
+                </label>
+                <label>
+                    <input type="radio" name="field" value="creator" {{if eq .Field "creator"}}checked{{end}}> Creator
+                </label>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="content">
+        {{if .ErrorMessage}}
+        <p class="error-message">{{.ErrorMessage}}</p>
+        {{end}}
+
+        {{if .Posts}}
+        <div class="search-results-title">Search Results for "{{.Query}}" in "{{.Field}}"</div>
+        <ul class="post-list">
+            {{range .Posts}}
+            <li>
+                <a href="/post?id={{.ID}}">{{.Title}}</a> by {{.Username}} in {{.Category}}
+            </li>
+            {{end}}
+        </ul>
+        {{else}}
+        {{if not .ErrorMessage}}
+        <p>No posts found for "{{.Query}}" in "{{.Field}}".</p>
+        {{end}}
+        {{end}}
+
+        <a href="/" class="back-link">Back to Home</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        /* Add some basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            padding: 10px;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .header .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d22d24;
+        }
+        .header .search-container {
+            display: flex;
+            align-items: center;
+        }
+        .header .search-bar {
+            margin-right: 10px;
+        }
+        .header .search-bar form {
+            display: flex;
+            align-items: center;
+        }
+        .header .search-bar input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            margin-right: 5px; /* Padding between search field and button */
+        }
+        .header .search-bar button {
+            padding: 5px 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .header .create-post-button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin-left: 10px;
+        }
+        .header .auth-buttons {
+            margin-left: 20px;
+        }
+        .header .auth-buttons a {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .categories {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        .categories ul {
+            list-style-type: none;
+            padding: 0;
+            display: inline-flex;
+            gap: 20px;
+        }
+        .categories ul li {
+            display: inline;
+        }
+        .categories ul li a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .post-list-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto; /* Centers the container */
+            width: 100%;
+        }
+        .post-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .post-list li {
+            margin-bottom: 10px;
+        }
+        .post-list li a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Literary Lions Forum</div>
+        <div class="search-container">
+            <div class="search-bar">
+                <form action="/search" method="get">
+                    <input type="text" name="q" placeholder="Search posts">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <a href="/create-post" class="create-post-button">Create Post</a>
+        </div>
+        <div class="auth-buttons">
+            {{if .LoggedIn}}
+                <a href="/profile?username={{.Username}}">Profile</a>
+                <a href="/logout">Logout</a>
+            {{else}}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {{end}}
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Welcome {{if .Username}}{{.Username}}{{else}}Guest{{end}}</h1>
+
+        <div class="categories">
+            <ul>
+                {{range .Categories}}
+                <li><a href="/filter-posts?filter={{.Value}}">{{.Name}}</a></li>
+                {{end}}
+            </ul>
+        </div>
+
+        <h2>Recent Posts</h2>
+        <div class="post-list-container">
+            <ul class="post-list">
+                {{range .Posts}}
+                <li>
+                    <a href="/post?id={{.ID}}">{{.Title}}</a> by <a href="/profile?username={{.Username}}"><a href="/profile?username={{.Username}}">{{.Username}}</a></a> in {{.Category}}
+                </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

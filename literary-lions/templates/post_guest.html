@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #fff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        h1 {
+            color: #d22d24;
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .post-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 2px;
+            background-color: #333;
+        }
+        .post-header h2 {
+            margin: 0;
+            color: #333;
+            word-wrap: break-word;
+            overflow-wrap: break-word; 
+            white-space: normal; 
+            max-width: 87%;
+        }
+        .back-button {
+            background: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-button:hover {
+            background: #2980b9;
+        }
+        .post {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .post p {
+            margin: 10px 0;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .post .meta {
+            color: #666;
+            font-size: 0.9em;
+        }
+        form {
+            margin: 20px 0;
+        }
+        form textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        form button, form input[type="submit"] {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        form button:disabled, form input[type="submit"]:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            word-wrap: break-word;
+        }
+        ul li p {
+        word-wrap: break-word;
+    }
+        ul li .remove-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #d22d24;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Literary Lions Forum</h1>
+    </header>
+    <div class="container">
+        <div class="post">
+            <div class="post-header">
+                <h2>{{.Title}}</h2>
+                <a href="/" class="back-button">Back to Home</a>
+            </div>
+            <p><strong>Creator:</strong> <a href="/profile?username={{.CreatorUsername}}" class="profile-link">{{.CreatorUsername}}</a></p>
+            <p><strong>Category:</strong> {{.Category}}</p>
+            <p>{{.Content}}</p>
+            <p class="meta"><em>Posted on {{.CreatedAt}}</em></p>
+
+            <form method="POST" action="/like">
+                <input type="hidden" name="post_id" value="{{.ID}}">
+                <button type="submit" name="like" value="true" {{if .UserLikeStatus.Liked}}disabled{{end}}>Like ({{.LikeCount}})</button>
+                <button type="submit" name="like" value="false" {{if .UserLikeStatus.Disliked}}disabled{{end}}>Dislike ({{.DislikeCount}})</button>
+            </form>
+
+            {{if .Error}}
+                <p class="error">{{.Error}}</p>
+            {{end}}
+
+            <h3>Leave a Comment</h3>
+            <form method="POST" action="/create-comment">
+                <input type="hidden" name="post_id" value="{{.ID}}">
+                <textarea name="content" placeholder="Write your comment here...">{{.PrefillComment}}</textarea><br>
+                <input type="submit" value="Post Comment">
+            </form>
+
+            <h3>Comments</h3>
+            <ul>
+                {{range .Comments}}
+                <li>
+                    <p>{{.Content}}</p>
+                    <small>Posted by <a href="/profile?username={{.Username}}">{{.Username}}</a> on {{.CreatedAt}}</small>
+                    <form method="POST" action="/delete-comment" style="display: inline;">
+                        <input type="hidden" name="comment_id" value="{{.ID}}">
+                        <input type="hidden" name="post_id" value="{{$.ID}}">
+                    </form>
+                </li>
+                {{end}}
+            </ul>
+            
+        </div>
+    </div>
+</body>
+</html>
