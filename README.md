@@ -1,0 +1,1 @@
+These are my two newest finished projets. Both of the tasks were made by me and a another student. My contributions for the projets basicly are: For the forum task, most of the front-end, most of the database, and for example the search functionality. For the stations task, the basic structure of the app and the algo, and all of the testing functionality. 
