@@ -1,0 +1,10 @@
+stations:
+victoria,6,7
+euston,11,23
+st_pancras,5,15
+
+connections:
+waterloo-victoria
+waterloo-euston
+st_pancras-euston
+victoria-st_pancras

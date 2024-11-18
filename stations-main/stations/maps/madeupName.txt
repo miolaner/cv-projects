@@ -1,0 +1,11 @@
+stations:
+waterlooo,3,1
+victooria,6,7
+eustoon,11,23
+st_pancras,5,15
+
+connections:
+waterlooo-victooria
+waterlooo-eustoon
+st_pancras-eustoon
+victooria-st_pancras
