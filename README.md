@@ -1,1 +1,1 @@
-These are some of the projects that I have created myself or with other students during our studies. Our full curriculum: https://koodsisu.notion.site/Curriculum-for-kood-Sisu-285616f50fca49b8b25cf31a6dd3b2dd.
+These are some of the projects that I have created by myself or with other students during our studies. Our full curriculum: https://koodsisu.notion.site/Curriculum-for-kood-Sisu-285616f50fca49b8b25cf31a6dd3b2dd.
