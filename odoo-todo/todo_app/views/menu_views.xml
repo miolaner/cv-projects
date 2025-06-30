@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>    <!-- Actions -->
+    <record id="action_todo_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">todo.task</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_id" ref="view_todo_task_tree"/>
+        <field name="search_view_id" ref="view_todo_task_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first task!
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_todo_root" 
+              name="Todo App" 
+              sequence="10"/>
+
+    <menuitem id="menu_todo_task" 
+              name="Tasks"
+              parent="menu_todo_root"
+              action="action_todo_task"
+              sequence="10"/>
+</odoo>
